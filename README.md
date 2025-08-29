@@ -43,7 +43,7 @@ Before you begin, ensure you have the following installed:
 
 ```bash
 # 📥 Step 1: Clone the repository
-git clone <YOUR_GIT_URL>
+git clone https://github.com/Umeshhakke/campus-canteen-dash.git
 
 # 📂 Step 2: Navigate to project directory
 cd campus-canteen-dash
@@ -133,21 +133,6 @@ campus-canteen-dash/
 
 ---
 
-## 🔧 Environment Setup
-
-Create a `.env` file in your root directory:
-
-```bash
-# Supabase Configuration
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-
-# App Configuration
-VITE_APP_NAME=CampusCanteen
-```
-
----
-
 ## 🤝 Contributing
 
 We welcome contributions to make campus dining even better!
@@ -192,7 +177,7 @@ The app features a clean, intuitive interface with:
 
 Need help with your campus dining experience?
 
-- 📧 Contact: support@campuscanteen.com
+- 📧 Contact: umeshhakke050@gmail.com
 - 🎓 Campus Support: Available at dining halls
 - 📱 In-app Help: Available in the mobile app
 
@@ -202,6 +187,5 @@ Need help with your campus dining experience?
 
 **⭐ Making campus dining smart, simple, and hassle-free!**
 
-Built with ❤️ for college students
 
 </div>
