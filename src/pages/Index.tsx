@@ -4,6 +4,7 @@ import TimeSlotSelection from "@/components/TimeSlotSelection";
 import MenuCategories from "@/components/MenuCategories";
 import SubscriptionPlans from "@/components/SubscriptionPlans";
 import FoodShowcase from "@/components/FoodShowcase";
+import { Toaster } from "@/components/ui/toaster";
 
 const Index = () => {
   return (
@@ -47,6 +48,8 @@ const Index = () => {
         {/* Subscription Plans */}
         <SubscriptionPlans />
       </main>
+      
+      <Toaster />
     </div>
   );
 };

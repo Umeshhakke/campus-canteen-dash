@@ -1,7 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Clock, MapPin, Star } from "lucide-react";
+import { Clock, MapPin, Star, ShoppingCart } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 import thaliMeal from "@/assets/thali-meal.jpg";
 import rotiCurry from "@/assets/roti-curry.jpg";
 import southIndianFood from "@/assets/south-indian-food.jpg";
@@ -55,6 +57,17 @@ const meals = [
 ];
 
 const MealBooking = () => {
+  const { toast } = useToast();
+  const [cartItems, setCartItems] = useState<number[]>([]);
+
+  const addToCart = (mealId: number, mealName: string, price: number) => {
+    setCartItems([...cartItems, mealId]);
+    toast({
+      title: "Added to Cart",
+      description: `${mealName} (₹${price}) has been added to your cart.`,
+    });
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -107,7 +120,9 @@ const MealBooking = () => {
                 <Button 
                   className="w-full" 
                   variant={meal.availability === 'Limited' ? 'outline' : 'default'}
+                  onClick={() => addToCart(meal.id, meal.name, meal.price)}
                 >
+                  <ShoppingCart className="h-4 w-4 mr-2" />
                   {meal.availability === 'Limited' ? 'Limited Stock' : 'Add to Cart'}
                 </Button>
               </div>

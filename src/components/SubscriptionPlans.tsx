@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Check, Crown, Star } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const plans = [
   {
@@ -61,6 +62,15 @@ const plans = [
 ];
 
 const SubscriptionPlans = () => {
+  const { toast } = useToast();
+
+  const handleSubscription = (planName: string, price: number) => {
+    toast({
+      title: "Subscription Started",
+      description: `You've successfully subscribed to ${planName} for ₹${price}. Enjoy your meals!`,
+    });
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -116,6 +126,7 @@ const SubscriptionPlans = () => {
                   className="w-full" 
                   variant={plan.popular ? "default" : "outline"}
                   size="lg"
+                  onClick={() => handleSubscription(plan.name, plan.price)}
                 >
                   Subscribe Now
                 </Button>

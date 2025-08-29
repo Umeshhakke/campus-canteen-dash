@@ -2,6 +2,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Eye, Heart, Star, TrendingUp } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 import thaliMeal from "@/assets/thali-meal.jpg";
 import rotiCurry from "@/assets/roti-curry.jpg";
 import southIndianFood from "@/assets/south-indian-food.jpg";
@@ -77,6 +79,40 @@ const foodItems = [
 ];
 
 const FoodShowcase = () => {
+  const { toast } = useToast();
+  const [likedItems, setLikedItems] = useState<number[]>([]);
+
+  const toggleLike = (itemId: number, itemName: string) => {
+    const isLiked = likedItems.includes(itemId);
+    if (isLiked) {
+      setLikedItems(likedItems.filter(id => id !== itemId));
+      toast({
+        title: "Removed from Favorites",
+        description: `${itemName} has been removed from your favorites.`,
+      });
+    } else {
+      setLikedItems([...likedItems, itemId]);
+      toast({
+        title: "Added to Favorites",
+        description: `${itemName} has been added to your favorites.`,
+      });
+    }
+  };
+
+  const viewDetails = (itemName: string) => {
+    toast({
+      title: "View Details",
+      description: `Viewing details for ${itemName}`,
+    });
+  };
+
+  const viewAllMenuItems = () => {
+    toast({
+      title: "Menu Loading",
+      description: "Loading complete menu items...",
+    });
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -118,15 +154,21 @@ const FoodShowcase = () => {
                 
                 {/* Overlay Actions */}
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-2">
-                  <Button size="sm" variant="secondary" className="h-8 w-8 p-0">
+                  <Button 
+                    size="sm" 
+                    variant="secondary" 
+                    className="h-8 w-8 p-0"
+                    onClick={() => viewDetails(item.name)}
+                  >
                     <Eye className="h-4 w-4" />
                   </Button>
                   <Button 
                     size="sm" 
-                    variant={item.liked ? "default" : "secondary"} 
+                    variant={likedItems.includes(item.id) || item.liked ? "default" : "secondary"} 
                     className="h-8 w-8 p-0"
+                    onClick={() => toggleLike(item.id, item.name)}
                   >
-                    <Heart className={`h-4 w-4 ${item.liked ? 'fill-current' : ''}`} />
+                    <Heart className={`h-4 w-4 ${(likedItems.includes(item.id) || item.liked) ? 'fill-current' : ''}`} />
                   </Button>
                 </div>
               </div>
@@ -148,7 +190,7 @@ const FoodShowcase = () => {
         </div>
         
         <div className="mt-6 text-center">
-          <Button variant="outline">
+          <Button variant="outline" onClick={viewAllMenuItems}>
             View All Menu Items
           </Button>
         </div>

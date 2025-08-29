@@ -2,7 +2,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Coffee, Sun, Utensils, Moon } from "lucide-react";
+import { Coffee, Sun, Utensils, Moon, ShoppingCart } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 import thaliMeal from "@/assets/thali-meal.jpg";
 import rotiCurry from "@/assets/roti-curry.jpg";
 import southIndianFood from "@/assets/south-indian-food.jpg";
@@ -43,6 +44,15 @@ const categories = [
 ];
 
 const MenuCategories = () => {
+  const { toast } = useToast();
+
+  const addToCart = (itemName: string, price: number) => {
+    toast({
+      title: "Added to Cart",
+      description: `${itemName} (₹${price}) has been added to your cart.`,
+    });
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -97,7 +107,9 @@ const MenuCategories = () => {
                         className="w-full" 
                         disabled={!item.available}
                         variant={item.available ? "default" : "outline"}
+                        onClick={() => item.available && addToCart(item.name, item.price)}
                       >
+                        {item.available && <ShoppingCart className="h-3 w-3 mr-1" />}
                         {item.available ? 'Add to Cart' : 'Unavailable'}
                       </Button>
                     </div>
